@@ -1,32 +1,48 @@
-console.log('1000');
+let array = [3,2,3, 23];
+// //array[1000000] = 10;
+// // console.log(array.length);
+// // console.log(array[0])}
+// function forEach (array, fun) {
+//      for(let i = 0; i < array.length; i++) {
+//         fun(array[i], i);
+//      }
+// }
+// //forEach takes array and fun with two parameters: first - element of array, second - index
+// function print(elem, index){
+//     console.log(`index: ${index}, element: ${elem}`)
+// };
+// forEach(array, print);
 
-const sum = function(a, b){
-    return a + b;
+
+
+function some(array, fun) {
+    let index = 0;
+    while(index < array.length && !fun(array[index], index)){
+        index++;
+    }
+    return index < array.length;
+
+    //returns true if at least one element of the array match a condition given in the function (fun)
 }
 
-const substract = function(a, b){
-    return a - b;
+
+
+function evenNumber(num) {
+    return num % 2 == 0;
 }
+console.log(`using "some" function for even numbers array: ${array}, function ${evenNumber}, result: ${some(array, evenNumber)} - false`)
 
-const divide = function(a, b){
-    return a/b;
+
+function every(array, fun) {
+    let index = 0;
+    while(index < array.length && fun(array[index], index)){
+        index++;
+    }
+    return index == array.length;
+
 }
-
-const multiply = function(a, b){
-    return a*b;
-} 
-
-
-
-// console.log(sum+"");
-
-function calculate(fun, a, b){
-    return fun(a,b);
+array = [2, 2, 4];
+function elmGreaterIndex(elem, index) {
+    return elem > index
 }
-
-console.log(calculate(sum, 10, 5));
- 
-
-console.log(calculate(sum,5,multiply(2,sum)));
-
-
+console.log(`using "every" function for elements greater than the index values, array: ${array}, function ${elmGreaterIndex}, result: ${every(array, evenNumber)} - true`)
