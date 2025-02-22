@@ -1,39 +1,58 @@
-function minMax(...values){
-let min = Infinity;
-let max = -Infinity;
-    for (let i=0; i<values.length; i++){
-        if(Array.isArray(values[i])){
-            min = minMaxArray(values[i])[0];
-            max = minMaxArray(values[i])[1];
-        } else
-        if(values[i]>=max){
-            max=values[i];
-        } 
-        if(values[i]<min) {
-            min=values[i];
+const array = ['HELLO', 122, -10, 'Java', 'JavaScript', 500, 'Nodejs'];
+console.log(array);
+console.log(array.sort(compNumStr));
+console.log("array will be  [500, 122, -10, 'HELLO', 'Java', 'JavaScript','Nodejs']")
+
+function compNumStr(e1, e2) {
+    //TODO
+    //compares e1 and e2 based on:
+   //returns negative, positive or 0 so that
+    //sorting was as follows
+    //first numbers sorted by descending order
+    //after numbers strings sorted by ascending order
+    //example: array.sort(compNumStr);
+    //array will be  [500, 122, -10, 'HELLO', 'Java', 'JavaScript','Nodejs']
+    let res = 0;
+    
+    if (typeof e1 == 'number' && typeof e2 == 'number'){
+        res = e2-e1;
+    } else if (typeof e1 == 'string' && typeof e2 == 'string'){
+        res = 1;
+    } else if (typeof e1 == 'number' && typeof e2 == 'string'){
+        res = -1;
+    } else if (typeof e1 == 'string' && typeof e2 == 'number'){
+        res = 1;
+    }
+
+    return res;
+}
+function orderedList(array) {
+    //TODO
+    //array is any array containing both numbewrs and strings
+    //returns HTML text for ordered list
+    //string will have default color
+    //number will have red color
+    //<ol><li>....</li>...<li>....</li></ol>
+    //example (only example)
+
+    let res = '<ol>';
+    for (let i =0 ; i<array.length; i++){
+        if (typeof array[i] == 'number'){
+            res += `<li class="item item_number">${array[i]}</Li>`
+        } else if (typeof array[i] == 'string'){
+            res += `<li class="item">${array[i]}</Li>`
         }
     }
-return [min,max];
+    res += '</ol>';
+    return res;
+    
+    // `<ol>
+    //     <li class="item">Hello</li>
+    //     <li class="item item_number">300</li>
+    //     <li class="item">Java</li>
+    //     <li class="item">Nodejs</li>
+    //     <li class="item item_number">100</li>
+    // </ol>`
 }
-
-function minMaxArray(array){
-let min = Infinity;
-let max = -Infinity;
-    for(let i=0; i<array.length; i++){
-        if(array[i]>max){
-            max=array[i];
-        } 
-        if(array[i]<min){
-            min=array[i];
-        } 
-    }
-return [min, max];
-}
-
-
-console.log(`Minimal and maximal for (1,2,3,4,5,6,7,8) (1,8): ${Math.min(1,2,3,4,5,6,7,8)},${Math.max(1,2,3,4,5,6,7,8)} = ${minMax(1,2,3,4,5,6,7,8)}`);
-console.log(`Minimal and maximal for (1,2,3,4,5,80,-80,-3,-5,-2)(-80,80): ${Math.min(1,2,3,4,5,80,-80,-3,-5,-2)},${Math.max(1,2,3,4,5,80,-80,-3,-5,-2)} = ${minMax(1,2,3,4,5,80,-80,-3,-5,-2)}`); 
-console.log(`Minimal and maximal for (1,2,3,[10,-20,5]) (-20,10): ${Math.min(1,2,3,...[10,-20,5])},${Math.max(1,2,3,...[10,-20,5])} = ${minMax(1,2,3,[10,-20,5])}`);
-console.log(`Minimal and maximal for ([100,-20,30],1,2,3) (-20,100): ${Math.min(...[100,-20,30],1,2,3)},${Math.max(...[100,-20,30],1,2,3)} = ${minMax([100,-20,30],1,2,3)}`);     
-console.log(`Minimal and maximal for (10,20,[1,-2,3],30) (-2,30): ${Math.min(10,20,...[1,-2,3],30)},${Math.max(10,20,...[1,-2,3],30)} = ${minMax(10,20,[1,-2,3],30)}`);  
-console.log(`Minimal and maximal for ([10,30,5]) (5,30): ${Math.min(...[10,30,5])},${Math.max(...[10,30,5])} = ${minMax(...[10,30,5])}`);    
+const bodyElement = document.querySelector('body');
+bodyElement.innerHTML = orderedList(["Hello", 300, "Java", "Nodejs", 100]);
