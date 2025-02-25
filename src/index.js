@@ -1,58 +1,30 @@
-const array = ['HELLO', 122, -10, 'Java', 'JavaScript', 500, 'Nodejs'];
-console.log(array);
-console.log(array.sort(compNumStr));
-console.log("array will be  [500, 122, -10, 'HELLO', 'Java', 'JavaScript','Nodejs']")
+function myReduce(array, callback, initialValue) {
+    let accumulator = array[0];
+    let index = 1;
 
-function compNumStr(e1, e2) {
-    //TODO
-    //compares e1 and e2 based on:
-   //returns negative, positive or 0 so that
-    //sorting was as follows
-    //first numbers sorted by descending order
-    //after numbers strings sorted by ascending order
-    //example: array.sort(compNumStr);
-    //array will be  [500, 122, -10, 'HELLO', 'Java', 'JavaScript','Nodejs']
-    let res = 0;
-    
-    if (typeof e1 == 'number' && typeof e2 == 'number'){
-        res = e2-e1;
-    } else if (typeof e1 == 'string' && typeof e2 == 'string'){
-        res = 1;
-    } else if (typeof e1 == 'number' && typeof e2 == 'string'){
-        res = -1;
-    } else if (typeof e1 == 'string' && typeof e2 == 'number'){
-        res = 1;
+    if (initialValue) {
+        accumulator = initialValue;
+        index = 0;
     }
-
-    return res;
-}
-function orderedList(array) {
-    //TODO
-    //array is any array containing both numbewrs and strings
-    //returns HTML text for ordered list
-    //string will have default color
-    //number will have red color
-    //<ol><li>....</li>...<li>....</li></ol>
-    //example (only example)
-
-    let res = '<ol>';
-    for (let i =0 ; i<array.length; i++){
-        if (typeof array[i] == 'number'){
-            res += `<li class="item item_number">${array[i]}</Li>`
-        } else if (typeof array[i] == 'string'){
-            res += `<li class="item">${array[i]}</Li>`
-        }
-    }
-    res += '</ol>';
-    return res;
     
-    // `<ol>
-    //     <li class="item">Hello</li>
-    //     <li class="item item_number">300</li>
-    //     <li class="item">Java</li>
-    //     <li class="item">Nodejs</li>
-    //     <li class="item item_number">100</li>
-    // </ol>`
-}
-const bodyElement = document.querySelector('body');
-bodyElement.innerHTML = orderedList(["Hello", 300, "Java", "Nodejs", 100]);
+    for(index; index<array.length; index++){
+        currentValue = array[index];
+        accumulator = callback(accumulator, currentValue, index, array);
+    }
+    return accumulator; 
+  }
+
+  function minMax(arr){
+    let minMaxEl = [];
+    minMaxEl[0] = myReduce(arr, (acc,cur) => acc < cur ? acc : cur, arr[0]);
+    minMaxEl[1] = myReduce(arr, (acc,cur) => acc > cur ? acc : cur, arr[0]);
+    return minMaxEl;
+  }
+
+  console.log(`function myReduce for (a,b)=> a+b, for array[1,2,3,4,5,6] and initialValue 9, result 30 == ${myReduce([1,2,3,4,5,6], (a,b)=> a+b,9)}`);
+  console.log(`function myReduce for (a,b)=> a+b, for array[11,22,33] without initialValue, result 66 == ${myReduce([11,22,33], (a,b)=> a+b)}`);
+
+  console.log(`function minMax with myReduse for array [1,2,3,-2,4,5,6], result [-2,6] == ${minMax([1,2,3,-2,4,5,6])}`);
+  console.log(`function minMax with myReduse for array ['a','b','c','d','e'], result [a,e] == ${minMax(['a','b','c','d','e'])}`);
+
+ 
