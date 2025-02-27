@@ -4,9 +4,14 @@ body {
     align-items: center;
     height: 100vh;
 }
+
 .item {
     font-size: 2rem;
 }
-.item_number {
-    color: red
+.item_passed {
+    color: green;
+}
+
+.item_failed {
+    color: red;
 }
